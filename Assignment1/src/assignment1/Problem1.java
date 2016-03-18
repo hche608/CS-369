@@ -11,7 +11,7 @@ import Jama.SingularValueDecomposition;
 public class Problem1 {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 
 		final int[][] image = PGMIO.read(new File(args[0]));
@@ -25,7 +25,7 @@ public class Problem1 {
 		final Matrix U = SVD.getU();
 
 		
-		PGMIO.write(imageU, new File(svdDir, "U.pgm"));
+		//PGMIO.write(imageU, new File(svdDir, "U.pgm"));
 
 
 	}
