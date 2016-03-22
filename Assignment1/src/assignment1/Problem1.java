@@ -72,8 +72,8 @@ public class Problem1 {
 			final int[][] imageAHat = MatrixUtils.MatrixDouble2Int(A_hat.getArray(), MatrixUtils.TRUNCATING_MAP);
 			PGMIO.write(imageAHat, new File(aHatDir, rho + ".pgm"));
 
-			System.out.print("MaxError: " + MatrixUtils.computeMaxError(A, A_hat));
-			System.out.print(", MeanError: " + MatrixUtils.computeMeanError(A, A_hat));
+			System.out.print("MaxError: " + ComputeUnit.computeMaxError(A, A_hat));
+			System.out.print(", MeanError: " + ComputeUnit.computeMeanError(A, A_hat));
 			final double compression = ComputeUnit.computeCompression(A, rho);
 			System.out.print(", Compression: " + compression + "\n");
 		}

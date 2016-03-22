@@ -4,12 +4,11 @@ import java.util.Arrays;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 
-import Jama.Matrix;
-
 /**
  * @author hche608
  *
  */
+
 public class MatrixUtils {
 
 	/**
@@ -29,17 +28,25 @@ public class MatrixUtils {
 	 * Represents a linear map from a given range to the byte range.
 	 */
 	public static class LinearMap implements DoubleToIntFunction {
-		private final double a;
-		private final double b;
+		private final double min;
+		private final double denominator;
 
 		public LinearMap(final double min, final double max) {
-			a = min;
-			b = max - min;
+			this.min = min;
+			this.denominator = max - min;
+		}
+		
+		public double getMin() {
+			return min;
+		}
+
+		public double getDenominator() {
+			return denominator;
 		}
 
 		@Override
 		public int applyAsInt(final double x) {
-			return (int) Math.round(255 * (x - a) / b);
+			return (int) Math.round(255 * (x - getMin()) / getDenominator());
 		}
 	}
 
@@ -85,43 +92,14 @@ public class MatrixUtils {
 		return Arrays.stream(d).flatMapToDouble(Arrays::stream).min().getAsDouble();
 	}
 
-	/**
-	 * Computes the maximum error between a matrix and its approximation.
-	 * 
-	 * @param A
-	 *            the matrix
-	 * @param AHat
-	 *            the approximation
-	 * @return the maximum error
-	 */
-	public static double computeMaxError(final Matrix A, final Matrix AHat) {
-		return Arrays.stream(A.minus(AHat).getArray()).flatMapToDouble(Arrays::stream).map(Math::abs).max()
-				.getAsDouble();
-	}
-
-	/**
-	 * Computes the mean error between a matrix and its approximation.
-	 * 
-	 * @param A
-	 *            the matrix
-	 * @param AHat
-	 *            the approximation
-	 * @return the mean error
-	 */
-	public static double computeMeanError(final Matrix A, final Matrix AHat) {
-		return Arrays.stream(A.minus(AHat).getArray()).flatMapToDouble(Arrays::stream).map(Math::abs).sum()
-				/ (A.getColumnDimension() * A.getRowDimension());
-	}
-
 	public static double[][] MatrixInt2Double(int[][] intMatrix) {
 		final double[][] result = new double[intMatrix.length][intMatrix[0].length];
 		for (int i = 0; i < result.length; i++) {
 			for (int j = 0; j < result[0].length; j++) {
-				result[i][j] = (double) intMatrix[i][j];
+				result[i][j] = intMatrix[i][j];
 			}
 		}
 		return result;
-
 	}
 
 	public static int[][] MatrixDouble2Int(double[][] doubleMatrix, DoubleToIntFunction f) {
@@ -132,7 +110,5 @@ public class MatrixUtils {
 			}
 		}
 		return result;
-
 	}
-
 }
