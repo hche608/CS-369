@@ -1,6 +1,8 @@
 package assignment1;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.DoubleUnaryOperator;
 
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
@@ -75,5 +77,77 @@ public class ComputeUnit {
 	public static double computeMeanError(final Matrix A, final Matrix AHat) {
 		return Arrays.stream(A.minus(AHat).getArray()).flatMapToDouble(Arrays::stream).map(Math::abs).sum()
 				/ (A.getColumnDimension() * A.getRowDimension());
+	}
+	
+    /**
+     * Computes the pseudoinverse of a matrix.
+     * @param A the matrix to invert
+     * @return the pseudoinverse of A
+     */
+    public static Matrix computePseudoInverse(final Matrix A) {
+        final SingularValueDecomposition SVD = A.svd();
+        final Matrix U = SVD.getU();
+        final Matrix D = SVD.getS();
+        final Matrix D_plus = computePseudoInverseDiagonal(D);
+        final Matrix V = SVD.getV();
+        return V.times(D_plus).times(U.transpose());
+    }
+
+    /**
+     * Computes the pseudoinverse of a diagonal matrix.
+     * @param D the diagonal matrix to invert
+     * @return the pseudoinverse of D
+     */
+    public static Matrix computePseudoInverseDiagonal(final Matrix D) {
+        final Matrix D_plus = D.copy();
+        for (int i = 0; i < D_plus.getRowDimension(); ++i) {
+            final double d_i = D.get(i, i);
+            D_plus.set(i, i, d_i != 0 ? 1 / d_i : 0);
+        }
+        return D_plus;
+    }
+    
+	/**
+	 * Uses Newton's method to find a root of a function.
+	 * 
+	 * @param x_0
+	 *            the initial value
+	 * @param f
+	 *            the function
+	 * @param dfdx
+	 *            the derivative of the function with respect to x
+	 * @param xs
+	 *            a log of x_i values
+	 * @return a root of the function
+	 */
+	public static double newtonsMethod(final double x_0, final DoubleUnaryOperator f, final DoubleUnaryOperator dfdx,
+			final List<Double> xs) {
+		xs.add(x_0);
+		double x_im1 = x_0;
+		double x_i;
+		while (true) {
+			x_i = iterateNewtonsMethod(x_im1, f, dfdx);
+			xs.add(x_i);
+			if (Math.abs(x_i - x_im1) <= 0.0001)
+				break;
+			x_im1 = x_i;
+		}
+		return x_i;
+	}
+	
+	/**
+	 * Computes an iteration of Newton's method.
+	 * 
+	 * @param x_i
+	 *            the current value of x
+	 * @param f
+	 *            the function
+	 * @param dfdx
+	 *            the derivative of the function with respect to x
+	 * @return the next value of x
+	 */
+	private static double iterateNewtonsMethod(final double x_i, final DoubleUnaryOperator f,
+			final DoubleUnaryOperator dfdx) {
+		return x_i - f.applyAsDouble(x_i) / dfdx.applyAsDouble(x_i);
 	}
 }

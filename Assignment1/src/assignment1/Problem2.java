@@ -3,39 +3,11 @@ package assignment1;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
 import Jama.Matrix;
-import Jama.SingularValueDecomposition;
 
 public class Problem2 {
 
-    /**
-     * Computes the pseudoinverse of a matrix.
-     * @param A the matrix to invert
-     * @return the pseudoinverse of A
-     */
-    private static Matrix computePseudoInverse(final Matrix A) {
-        final SingularValueDecomposition SVD = A.svd();
-        final Matrix U = SVD.getU();
-        final Matrix D = SVD.getS();
-        final Matrix D_plus = computePseudoInverseDiagonal(D);
-        final Matrix V = SVD.getV();
-        return V.times(D_plus).times(U.transpose());
-    }
 
-    /**
-     * Computes the pseudoinverse of a diagonal matrix.
-     * @param D the diagonal matrix to invert
-     * @return the pseudoinverse of D
-     */
-    private static Matrix computePseudoInverseDiagonal(final Matrix D) {
-        final Matrix D_plus = D.copy();
-        for (int i = 0; i < D_plus.getRowDimension(); ++i) {
-            final double d_i = D.get(i, i);
-            D_plus.set(i, i, d_i != 0 ? 1 / d_i : 0);
-        }
-        return D_plus;
-    }
 
     /**
      * Computes the mean of the values in a matrix.
@@ -63,7 +35,7 @@ public class Problem2 {
 		final int[][] image = PGMIO.read(new File(args[0]));
 
         final Matrix A = new Matrix(MatrixUtils.MatrixInt2Double(image));
-        final Matrix P_inv = computePseudoInverse(A);
+        final Matrix P_inv = ComputeUnit.computePseudoInverse(A);
         final Matrix I_hat = P_inv.times(A);
 
         final File inverseDir = new File("inverse");
