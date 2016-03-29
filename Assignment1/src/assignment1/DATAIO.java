@@ -23,10 +23,10 @@ public class DATAIO {
 	 */
 	public static Matrix readMatrix(final File file, final int rows, final int cols) throws IOException {
 		final Matrix data = new Matrix(rows, cols);
-		try (final Scanner sc = new Scanner(file)) {
+		try (final Scanner scanner = new Scanner(file)) {
 			for (int i = 0; i < rows; ++i) {
 				for (int j = 0; j < cols; ++j)
-					data.set(i, j, sc.nextInt());
+					data.set(i, j, scanner.nextInt());
 			}
 		}
 		return data;
