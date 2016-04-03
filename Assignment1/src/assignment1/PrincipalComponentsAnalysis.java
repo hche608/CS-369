@@ -56,15 +56,6 @@ public class PrincipalComponentsAnalysis {
     }
 
     /**
-     * Get the ith largest singular value.
-     * @param i i
-     * @return the singular value
-     */
-    public double getSingularValue(final int i) {
-        return D.get(i, i);
-    }
-
-    /**
      * Get the principal component associated with the ith largest singular value.
      * @param i i
      * @return the principal component
@@ -82,6 +73,16 @@ public class PrincipalComponentsAnalysis {
     }
 
     /**
+     * Project the data into the k-dimensional space defined by the first k principal components.
+     * @param k k
+     * @return the projected data
+     */
+    public Matrix getProjectedData(final int k) {
+        final Matrix P_k = getProjectionMatrix(k);
+        return A.times(P_k);
+    }
+
+    /**
      * Get the projection matrix whose columns are the first k principal components.
      * @param k k
      * @return the projection matrix
@@ -91,13 +92,12 @@ public class PrincipalComponentsAnalysis {
     }
 
     /**
-     * Project the data into the k-dimensional space defined by the first k principal components.
-     * @param k k
-     * @return the projected data
+     * Get the ith largest singular value.
+     * @param i i
+     * @return the singular value
      */
-    public Matrix getProjectedData(final int k) {
-        final Matrix P_k = getProjectionMatrix(k);
-        return A.times(P_k);
+    public double getSingularValue(final int i) {
+        return D.get(i, i);
     }
 
 }
