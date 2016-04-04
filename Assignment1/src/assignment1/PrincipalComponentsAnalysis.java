@@ -19,7 +19,6 @@ public class PrincipalComponentsAnalysis {
 
         this.A = A;
         final Matrix B = centerColumns(A);
-        //final Matrix S;
 
         final int rows = A.getRowDimension();
         final int cols = A.getColumnDimension();

@@ -65,14 +65,14 @@ public class Problem1 {
 		final File aHatDir = new File("Ahat");
 		aHatDir.mkdir();
 
-		final int[] rhos = { 1, 2, 3, 4, 5, 10, 20, 30, 40, 90 };
+		final int[] rhos = { 1, 2, 3, 4, 5, 10, 20, 30, 40, 54, 55, 90 };
 
 		for (int rho : rhos) {
 			final Matrix A_hat = ComputeUnit.computeAHat(SVD, rho);
 			final int[][] imageAHat = MatrixUtils.MatrixDouble2Int(A_hat.getArray(), MatrixUtils.TRUNCATING_MAP);
 			PGMIO.write(imageAHat, new File(aHatDir, rho + ".pgm"));
 
-			System.out.print("MaxError: " + ComputeUnit.computeMaxError(A, A_hat));
+			System.out.print("MaxError("+ rho +"): " + ComputeUnit.computeMaxError(A, A_hat));
 			System.out.print(", MeanError: " + ComputeUnit.computeMeanError(A, A_hat));
 			final double compression = ComputeUnit.computeCompression(A, rho);
 			System.out.print(", Compression: " + compression + "\n");

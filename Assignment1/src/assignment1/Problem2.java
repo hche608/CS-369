@@ -61,7 +61,7 @@ public class Problem2 {
 */
         System.out.print("Range: " + (MatrixUtils.max(E.getArray()) - MatrixUtils.min(E.getArray())));
         System.out.print(", Mean: " + mean(E));
-        System.out.print(", Stdev: " + stdev(E) + "/n");
+        System.out.print(", Stdev: " + stdev(E) + "\n");
         
         final Matrix B = A.times(P_inv);
         final int[][] imageB = MatrixUtils.MatrixDouble2Int(B.getArray(),
