@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import Jama.Matrix;
 
+/**
+ * @author hche608
+ *
+ */
 public class Problem2 {
 
 
@@ -38,7 +42,7 @@ public class Problem2 {
         final Matrix P_inv = ComputeUnit.computePseudoInverse(A);
         final Matrix I_hat = P_inv.times(A);
 
-        final File inverseDir = new File("inverse");
+        final File inverseDir = new File("Inverse");
         inverseDir.mkdir();
 
         final int[][] imagePinv = MatrixUtils.MatrixDouble2Int(P_inv.getArray(),
@@ -52,13 +56,6 @@ public class Problem2 {
         final Matrix I = Matrix.identity(I_hat.getRowDimension(), I_hat.getColumnDimension());
         final Matrix E = I.minus(I_hat);
 
-        /*
-        final Variables var = new Variables();
-        var.put("range", (MatrixUtils.max(E.getArray()) - MatrixUtils.min(E.getArray())));
-        var.put("mean", mean(E));
-        var.put("stdev", stdev(E));
-        var.write(new File(inverseDir, "error.tex"));
-*/
         System.out.print("Range: " + (MatrixUtils.max(E.getArray()) - MatrixUtils.min(E.getArray())));
         System.out.print(", Mean: " + mean(E));
         System.out.print(", Stdev: " + stdev(E) + "\n");

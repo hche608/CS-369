@@ -5,6 +5,10 @@ import java.io.IOException;
 
 import Jama.Matrix;
 
+/**
+ * @author hche608
+ *
+ */
 public class Problem3 {
 	
 	private static void printMatrix(Matrix m) {

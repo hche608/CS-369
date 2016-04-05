@@ -7,6 +7,10 @@ import java.util.function.DoubleUnaryOperator;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 
+/**
+ * @author hche608
+ *
+ */
 public class ComputeUnit {
 	/**
 	 * Returns the SVD approximation for a matrix.

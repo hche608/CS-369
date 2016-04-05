@@ -4,6 +4,10 @@ import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import java.util.Arrays;
 
+/**
+ * @author hche608
+ *
+ */
 public class PrincipalComponentsAnalysis {
 
     private final Matrix A;

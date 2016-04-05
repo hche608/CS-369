@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 
+/**
+ * @author hche608
+ *
+ */
 public class Problem4 {
 	
 	private static void printSteps(final List<Double> x, final DoubleUnaryOperator f, final DoubleUnaryOperator dfdx, final double root){

@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 import Jama.Matrix;
 
+/**
+ * @author hche608
+ *
+ */
 public class DATAIO {
 	/**
 	 * Reads a matrix from a whitespace-delimited plain text file.

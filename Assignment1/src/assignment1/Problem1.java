@@ -5,6 +5,10 @@ import java.io.IOException;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 
+/**
+ * @author hche608
+ *
+ */
 public class Problem1 {
 
 	private static void printMatrix(Matrix m) {
@@ -52,8 +56,8 @@ public class Problem1 {
 				new MatrixUtils.LinearMap(MatrixUtils.min(D.getArray()), MatrixUtils.max(D.getArray())));
 		PGMIO.write(imageD, new File(svdDir, "D.pgm"));
 
-		printMatrix(D);
-		printPGM(imageD);
+		//printMatrix(D);
+		//printPGM(imageD);
 
 		final Matrix V = SVD.getV();
 		final int[][] imageV = MatrixUtils.MatrixDouble2Int(V.getArray(),
